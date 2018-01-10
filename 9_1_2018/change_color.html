@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<title>Change Image Color Randomly</title>
+		<script type="text/javascript">
+			var imgobj = null;
+			function init()
+			{
+				imgobj = document.getElementById("image1");
+			}	
+			function zoomImage(e)
+			{				
+				switch(e.keyCode || e.which) {
+					case 107:
+						moveUp();
+						break;
+					case 109:
+						moveDown();
+						break;
+				}	
+			}	
+			function changeColor()
+			{
+				var r = Math.floor(Math.random() * 255);
+				var g = Math.floor(Math.random() * 255);
+				var b = Math.floor(Math.random() * 255);
+				var col = "#" + r + g + b ;
+				return col;
+			}
+			function moveUp()
+			{
+				var curr_height = imgobj.clientHeight;
+				var curr_width = imgobj.clientWidth;
+				var w = window.innerWidth;
+				var h = window.innerHeight - 21;
+				if(curr_height >= 50 && curr_width >= 50) {
+					if(curr_height <= h && curr_width <= w) {
+						imgobj.style.width = (curr_height + 10) + 'px';
+						imgobj.style.height = (curr_width + 10) + 'px';
+						//Change Image Color							
+						imgobj.style.backgroundColor = changeColor();
+					}
+					else{
+						alert("Does not Exceed the window size...");
+						imgobj.style.height = imgobj.clientHeight;
+						imgobj.style.width = imgobj.clientWidth;
+					}
+				}
+				else{
+					alert("Oppsssssssssssss!!");
+					imgobj.style.height = 60 + "px";
+					imgobj.style.width = 60 + "px";
+				}					
+			}
+			function moveDown()
+			{
+				var curr_height = imgobj.clientHeight;
+				var curr_width = imgobj.clientWidth;
+				if(curr_height >= 50 && curr_width >= 50) {
+					imgobj.style.width = (curr_height - 10) + 'px';
+					imgobj.style.height = (curr_width - 10) + 'px';
+					//Change Image Color
+					imgobj.style.backgroundColor = changeColor();
+				}
+				else{
+					alert("Can't Zoom Out the Image!!");
+					imgobj.style.height = 60 + "px";
+					imgobj.style.width = 60 + "px";
+				}					
+			}
+			window.onload = init;
+		</script>
+	</head>
+	<body onkeydown='zoomImage(event)'>
+		<button id="image1" style="height:60px; width:60px" />
+	</body>
+</html>

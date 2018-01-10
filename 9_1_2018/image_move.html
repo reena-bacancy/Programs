@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<title>Move Image</title>
+		<script type="text/javascript">
+			var imgobj = null;
+			var img, img_width, img_height, w, h, max_height, max_width;			
+			function init()
+			{
+				imgobj = document.getElementById("image1");
+				imgobj.style.position = 'relative';
+				imgobj.style.left = '0px';
+				imgobj.style.top = '0px';
+			}			
+			function moveImage(e)
+			{	
+				img_height = imgobj.clientHeight;
+			 	img_width = imgobj.clientWidth;
+			 	w = window.innerWidth;
+				h = window.innerHeight;
+				max_height = (parseInt(h) - parseInt(img_height) - 16);	
+			 	max_width = (parseInt(w) - parseInt(img_width) - 21);							
+				switch (e.keyCode || e.which) {
+					case 37:
+						moveLeft();
+						break;
+					case 38:
+						moveUp();
+						break;
+					case 39:
+						moveRight();
+						break;
+					case 40:
+						moveDown();
+						break;
+				}
+			}
+			function moveLeft()
+			{
+				if (parseInt(imgobj.style.left) > 0 && (parseInt(imgobj.style.top) == 0 ||
+					parseInt(imgobj.style.top) == max_height )) {						
+					imgobj.style.left = parseInt(imgobj.style.left) - 5 + 'px';
+				}
+			}
+			function moveUp()
+			{
+				if (parseInt(imgobj.style.top) > 0 && (parseInt(imgobj.style.left) == 0 || 
+					parseInt(imgobj.style.left) == max_width)) {
+					imgobj.style.top = parseInt(imgobj.style.top) - 5 + 'px';
+				}
+			}
+			function moveRight()
+			{
+				if (parseInt(imgobj.style.left) < max_width && (parseInt(imgobj.style.top) == 0 ||
+					parseInt(imgobj.style.top) == max_height)) {
+					imgobj.style.left = parseInt(imgobj.style.left) + 5 + 'px';
+				}
+			}
+			function moveDown()
+			{
+				if (parseInt(imgobj.style.top) < max_height && (parseInt(imgobj.style.left) == 0 ||
+					parseInt(imgobj.style.left) == max_width)) {
+					imgobj.style.top=parseInt(imgobj.style.top) + 5 + 'px';
+				}
+			}
+			window.onload = init;
+		</script>
+	</head>
+	<body onkeydown='moveImage(event)'>
+		<img id="image1" src="reena.jpg" alt="MyImage" height="60px" width="60px"/>
+	</body>
+</html>
